@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Downloader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            display: inline-block;
+            text-align: left;
+        }
+        label, input {
+            display: block;
+            margin: 10px 0;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .checkbox-container input {
+            margin-right: 10px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>YouTube Downloader</h1>
+        <label for="youtube-link">YouTube Link:</label>
+        <input type="text" id="youtube-link" placeholder="Paste YouTube link here" required>
+        
+        <div class="checkbox-container">
+            <input type="checkbox" id="video" name="format" value="video">
+            <label for="video">Video</label>
+        </div>
+        
+        <div class="checkbox-container">
+            <input type="checkbox" id="audio" name="format" value="audio">
+            <label for="audio">Audio</label>
+        </div>
+        
+        <button onclick="download()">Download</button>
+    </div>
+
+    <script>
+        function download() {
+            const link = document.getElementById('youtube-link').value;
+            const videoChecked = document.getElementById('video').checked;
+            const audioChecked = document.getElementById('audio').checked;
+
+            if (!link) {
+                alert("Please enter a YouTube link.");
+                return;
+            }
+
+            if (!videoChecked && !audioChecked) {
+                alert("Please select at least one format (video or audio).");
+                return;
+            }
+
+            if (videoChecked) {
+                window.open(`http://localhost:4000/download?url=${encodeURIComponent(link)}&format=video`);
+            }
+
+            if (audioChecked) {
+                window.open(`http://localhost:4000/download?url=${encodeURIComponent(link)}&format=audio`);
+            }
+        }
+    </script>
+</body>
+</html>
